@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Router } from 'react-router-dom';
 
 class RegisterComponent extends Component {
 
@@ -20,9 +21,9 @@ class RegisterComponent extends Component {
 
     //React Life Cycle
     componentDidMount(){
-        this.userData = JSON.parse(localStorage.getItem('user'))
+        this.userData = JSON.parse(sessionStorage.getItem('user'))
 
-        if(localStorage.getItem('user')){
+        if(sessionStorage.getItem('user')){
             this.setState({
                 first_name: this.userData.first_name,
                 last_name: this.userData.last_name,
@@ -40,19 +41,14 @@ class RegisterComponent extends Component {
     }
 
     componentWillUpdate(nextProps, nextState){
-        localStorage.setItem('user', JSON.stringify(nextState))
+        sessionStorage.setItem('user', JSON.stringify(nextState))
     }
 
     handleSubmit = (e) =>{
         console.log(this.state);
         
         e.preventDefault()
-        this.setState({
-            first_name: "",
-            last_name: "",
-            email: "",
-            password: ""
-        })
+        this.props.history.push('/login');
     }
     
 
